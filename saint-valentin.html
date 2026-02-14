@@ -50,13 +50,7 @@
             animation: float 8s ease-in-out infinite;
         }
 
-        .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
-        .heart:nth-child(2) { left: 25%; animation-delay: 2s; }
-        .heart:nth-child(3) { left: 45%; animation-delay: 1s; }
-        .heart:nth-child(4) { left: 65%; animation-delay: 3s; }
-        .heart:nth-child(5) { left: 85%; animation-delay: 1.5s; }
-        .heart:nth-child(6) { left: 30%; top: 40%; animation-delay: 0.5s; }
-        .heart:nth-child(7) { left: 70%; top: 60%; animation-delay: 2.5s; }
+        .heart.heart-rand { opacity: 0.15; }
 
         @keyframes float {
             0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
@@ -345,6 +339,154 @@
         }
 
         /* Responsive */
+        /* Écran mot de passe — thème amour secret */
+        #password-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a0a0f 0%, #2d1f2d 50%, #1a0a0f 100%);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        #password-gate.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .gate-card {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(160deg, rgba(196, 30, 58, 0.2), rgba(45, 31, 45, 0.9));
+            border: 1px solid rgba(232, 160, 191, 0.35);
+            border-radius: 24px;
+            padding: 2.5rem 3rem;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(232, 160, 191, 0.1);
+            animation: gateReveal 0.8s ease-out;
+        }
+
+        .gate-card::before {
+            content: '♥';
+            display: block;
+            font-size: 2.5rem;
+            color: var(--rose-doux);
+            opacity: 0.5;
+            margin-bottom: 0.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes gateReveal {
+            from {
+                opacity: 0;
+                transform: scale(0.92) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .gate-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.6rem, 4vw, 2rem);
+            color: var(--rose-doux);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .gate-subtitle {
+            font-size: 0.9rem;
+            color: var(--or);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.75rem;
+            opacity: 0.95;
+        }
+
+        .gate-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            color: var(--rose-pale);
+            background: rgba(26, 10, 15, 0.6);
+            border: 1px solid rgba(232, 160, 191, 0.4);
+            border-radius: 12px;
+            margin-bottom: 1.25rem;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .gate-input::placeholder {
+            color: rgba(252, 228, 236, 0.5);
+        }
+
+        .gate-input:focus {
+            border-color: var(--rose-doux);
+            box-shadow: 0 0 0 3px rgba(232, 160, 191, 0.2);
+        }
+
+        .gate-input.error {
+            border-color: var(--rose-fonce);
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        .gate-btn {
+            display: inline-block;
+            padding: 0.9rem 2rem;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--noir-doux);
+            background: linear-gradient(145deg, var(--rose-doux), var(--rose-fonce));
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            letter-spacing: 0.05em;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .gate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(196, 30, 58, 0.4);
+        }
+
+        .gate-btn:active {
+            transform: translateY(0);
+        }
+
+        .gate-error {
+            font-size: 0.85rem;
+            color: var(--rose-fonce);
+            margin-top: 0.75rem;
+            min-height: 1.25rem;
+        }
+
+        .main-content {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .main-content.visible {
+            display: block;
+        }
+
         @media (max-width: 600px) {
             .photo-gallery {
                 grid-template-columns: repeat(2, 1fr);
@@ -355,24 +497,28 @@
                 width: 88vw;
                 height: 55vh;
             }
+
+            .gate-card {
+                padding: 2rem 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="hearts-bg">
-        <span class="heart">♥</span>
-        <span class="heart">♥</span>
-        <span class="heart">♥</span>
-        <span class="heart">♥</span>
-        <span class="heart">♥</span>
-        <span class="heart">♥</span>
-        <span class="heart">♥</span>
-        <span class="heart">♥</span>
-        <span class="heart">♥</span>
-        <span class="heart">♥</span>
-        <span class="heart">♥</span>
-        <span class="heart">♥</span>
+    <!-- Écran mot de passe -->
+    <div id="password-gate">
+        <div class="hearts-bg" id="gate-hearts"></div>
+        <div class="gate-card">
+            <h2 class="gate-title">Only the person Tonny loves can enter. </h2>
+            <p class="gate-subtitle">Does he love you?</p>
+            <input type="password" id="gate-input" class="gate-input" placeholder="Password..." autocomplete="off">
+            <button type="button" id="gate-btn" class="gate-btn">Enter my heart</button>
+            <p class="gate-error" id="gate-error" aria-live="polite"></p>
+        </div>
     </div>
+
+    <div class="main-content" id="main-content">
+    <div class="hearts-bg" id="main-hearts"></div>
 
     <div class="container">
         <header>
@@ -469,7 +615,86 @@
             <p style="font-size:24px;">♥</p>
             <p style="font-size:24px;">To my cute little dumpling</p>
         </footer>
+    </div>
 
+    <script>
+        // Mot de passe et accès
+        (function() {
+            var PASS = 'Frequency';
+            var STORAGE_KEY = 'sv_access';
+            var gate = document.getElementById('password-gate');
+            var mainContent = document.getElementById('main-content');
+            var input = document.getElementById('gate-input');
+            var btn = document.getElementById('gate-btn');
+            var errEl = document.getElementById('gate-error');
+
+            function showContent() {
+                try { sessionStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
+                gate.classList.add('hidden');
+                mainContent.classList.add('visible');
+            }
+
+            function showError(msg) {
+                errEl.textContent = msg;
+                input.classList.add('error');
+                setTimeout(function() { input.classList.remove('error'); }, 400);
+            }
+
+            function check() {
+                var val = (input.value || '').trim();
+                if (val === PASS) {
+                    errEl.textContent = '';
+                    showContent();
+                } else {
+                    showError(val ? 'Wrong!!! Try again.' : 'Password...');
+                }
+            }
+
+            if (sessionStorage.getItem(STORAGE_KEY) === '1') {
+                showContent();
+            } else {
+                mainContent.classList.remove('visible');
+            }
+
+            btn.addEventListener('click', check);
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') check();
+            });
+            input.focus();
+        })();
+
+        // Génération de 2–3x plus de cœurs (environ 32 cœurs)
+        (function() {
+            var count = 32;
+            var containers = [
+                document.getElementById('gate-hearts'),
+                document.getElementById('main-hearts')
+            ];
+
+            function createHearts(container) {
+                if (!container) return;
+                for (var i = 0; i < count; i++) {
+                    var heart = document.createElement('span');
+                    heart.className = 'heart heart-rand';
+                    heart.textContent = '♥';
+                    var left = 5 + Math.random() * 90;
+                    var top = Math.random() * 20;
+                    var delay = Math.random() * 6;
+                    var duration = 6 + Math.random() * 5;
+                    heart.style.left = left + '%';
+                    heart.style.top = (top || 0) + '%';
+                    heart.style.animationDelay = delay + 's';
+                    heart.style.animationDuration = duration + 's';
+                    heart.style.fontSize = (1 + Math.random() * 1.2).toFixed(2) + 'rem';
+                    container.appendChild(heart);
+                }
+            }
+
+            for (var c = 0; c < containers.length; c++) {
+                createHearts(containers[c]);
+            }
+        })();
+    </script>
     <script>
         (function() {
             var section = document.getElementById('nos-moments');
