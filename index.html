@@ -618,10 +618,9 @@
     </div>
 
     <script>
-        // Mot de passe et accès
+        // Mot de passe et accès (toujours demandé à chaque chargement)
         (function() {
             var PASS = 'Frequency';
-            var STORAGE_KEY = 'sv_access';
             var gate = document.getElementById('password-gate');
             var mainContent = document.getElementById('main-content');
             var input = document.getElementById('gate-input');
@@ -629,7 +628,6 @@
             var errEl = document.getElementById('gate-error');
 
             function showContent() {
-                try { sessionStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
                 gate.classList.add('hidden');
                 mainContent.classList.add('visible');
             }
@@ -650,11 +648,7 @@
                 }
             }
 
-            if (sessionStorage.getItem(STORAGE_KEY) === '1') {
-                showContent();
-            } else {
-                mainContent.classList.remove('visible');
-            }
+            mainContent.classList.remove('visible');
 
             btn.addEventListener('click', check);
             input.addEventListener('keydown', function(e) {
