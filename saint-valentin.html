@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Happy Valentines Day !</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rose-fonce: #c41e3a;
+            --rose-doux: #e8a0bf;
+            --rose-pale: #fce4ec;
+            --or: #d4af37;
+            --noir-doux: #2d1f2d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #1a0a0f 0%, #2d1f2d 50%, #1a0a0f 100%);
+            min-height: 100vh;
+            color: var(--rose-pale);
+            overflow-x: hidden;
+        }
+
+        /* Cœurs flottants en arrière-plan */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.15;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 25%; animation-delay: 2s; }
+        .heart:nth-child(3) { left: 45%; animation-delay: 1s; }
+        .heart:nth-child(4) { left: 65%; animation-delay: 3s; }
+        .heart:nth-child(5) { left: 85%; animation-delay: 1.5s; }
+        .heart:nth-child(6) { left: 30%; top: 40%; animation-delay: 0.5s; }
+        .heart:nth-child(7) { left: 70%; top: 60%; animation-delay: 2.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.15; }
+            90% { opacity: 0.15; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1.2s ease-out;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 600;
+            color: var(--rose-doux);
+            text-shadow: 0 0 30px rgba(232, 160, 191, 0.3);
+            letter-spacing: 0.05em;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--or);
+            margin-top: 0.5rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        /* Galerie photos animée */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+            perspective: 1000px;
+        }
+
+        .photo-frame {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 0 3px var(--rose-doux);
+            animation: photoReveal 1s ease-out backwards;
+            transform-style: preserve-3d;
+        }
+
+        .photo-frame:nth-child(1) { animation-delay: 0.2s; }
+        .photo-frame:nth-child(2) { animation-delay: 0.4s; }
+        .photo-frame:nth-child(3) { animation-delay: 0.6s; }
+        .photo-frame:nth-child(4) { animation-delay: 0.8s; }
+
+        .photo-frame:hover {
+            animation: photoFloat 2s ease-in-out infinite;
+            box-shadow: 0 15px 50px rgba(196, 30, 58, 0.3);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .photo-frame:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Placeholder si pas d'images : dégradé + icône cœur */
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, var(--rose-fonce), var(--noir-doux));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--rose-pale);
+            opacity: 0.9;
+        }
+
+        @keyframes photoReveal {
+            from {
+                opacity: 0;
+                transform: rotateY(-20deg) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: rotateY(0) scale(1);
+            }
+        }
+
+        @keyframes photoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Carte avec le texte d'amour */
+        .love-card {
+            background: linear-gradient(160deg, rgba(196, 30, 58, 0.15), rgba(45, 31, 45, 0.8));
+            border: 1px solid rgba(232, 160, 191, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1.2s ease-out 0.5s backwards;
+        }
+
+        .love-card::before {
+            content: '♥';
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: var(--rose-doux);
+            opacity: 0.4;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+        }
+
+        .love-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            line-height: 1.9;
+            font-style: italic;
+            color: var(--rose-pale);
+            text-align: center;
+        }
+
+        .love-text p {
+            margin-bottom: 1rem;
+        }
+
+        .signature {
+            text-align: right;
+            margin-top: 1.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--or);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 0rem;
+            padding-bottom: 40px;
+            font-size: 0.9rem;
+            color: var(--rose-doux);
+            opacity: 0.8;
+            animation: fadeIn 1.5s ease-out 1s backwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 0.8; }
+        }
+
+        /* Section scroll vertical → photos 1 par 1 avec effet horizontal + 3D */
+        .scroll-photos-section {
+            margin-top: 4rem;
+            position: relative;
+            height: 400vh;
+        }
+
+        .scroll-photos-section h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            color: var(--rose-doux);
+            text-align: center;
+            margin-bottom: 50px;
+            letter-spacing: 0.05em;
+        }
+
+        .scroll-photos-sticky {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-items: flex-start;
+            perspective: 2500px;
+            overflow: hidden;
+            padding-top: 30px;
+            flex-direction: column;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scroll-photos-stage {
+            position: relative;
+            width: min(85vw, 420px);
+            height: min(70vh, 380px);
+            transform-style: preserve-3d;
+        }
+
+        .scroll-photo-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            backface-visibility: hidden;
+            will-change: transform, opacity;
+            transform-origin: center center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(232, 160, 191, 0.15);
+        }
+
+        .scroll-photo-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .scroll-photo-slide .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            min-height: 200px;
+            font-size: 3rem;
+        }
+
+        .scroll-hint-vertical {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            color: var(--rose-doux);
+            opacity: 0.85;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            white-space: nowrap;
+        }
+
+        .scroll-hint-vertical span {
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); opacity: 0.7; }
+            50% { transform: translateY(6px); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .photo-gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .scroll-photos-stage {
+                width: 88vw;
+                height: 55vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-bg">
+        <span class="heart">♥</span>
+        <span class="heart">♥</span>
+        <span class="heart">♥</span>
+        <span class="heart">♥</span>
+        <span class="heart">♥</span>
+        <span class="heart">♥</span>
+        <span class="heart">♥</span>
+        <span class="heart">♥</span>
+        <span class="heart">♥</span>
+        <span class="heart">♥</span>
+        <span class="heart">♥</span>
+        <span class="heart">♥</span>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Happy Valentines Day !</h1>
+            <p class="subtitle">to my love ♥</p>
+        </header>
+
+        <section class="photo-gallery">
+            <div class="photo-frame">
+                <img src="img/img0.jpeg" alt="♥">
+                <!-- Remplacer par : <img src="photo1.jpg" alt="Nous"> -->
+            </div>
+            <div class="photo-frame">
+                <img src="img/img1.png" alt="♥">
+            </div>
+            <div class="photo-frame">
+                <img src="img/img2.jpeg" alt="♥">
+            </div>
+            <div class="photo-frame">
+                <img src="img/img3.jpeg" alt="♥">
+            </div>
+        </section>
+
+        <article class="love-card">
+            <div class="love-text">
+                <p>Every day by your side is a gift to me. You brighten my days, my evenings, and my nights with your presence, your smile, your beauty and your soul.
+                    You are the most wonderful person I have ever met, and I am ready to do anything to stay by your side despite the distance and the difficulties.
+                    I am so happy in every little moment we spend together.
+                    I promise that, you and me, we will experience many more bigger adventures together.</p>
+                    
+                    <p>For this Valentine’s Day, I simply wanted to tell you: thank you for existing, for being yourself, for your honesty, for your patience, for fighting every day for our love. Thank you for everything.</p>
+                    
+                    <p>With all my love, forever.</p>                    
+            </div>
+            <p class="signature">- For Wendy ♥</p>
+        </article>
+    </div>
+
+        <section class="scroll-photos-section" id="nos-moments">
+            <div class="scroll-photos-sticky">
+                <h2>Our memories</h2>
+                <div class="scroll-photos-stage" id="scrollStage">
+                    <div class="scroll-photo-slide" data-index="0">
+                        <img src="img/1.jpeg" alt="♥">
+                    </div>
+                    <div class="scroll-photo-slide" data-index="1">
+                        <img src="img/2.jpeg" alt="♥">
+                    </div>
+                    <div class="scroll-photo-slide" data-index="2">
+                        <img src="img/3.jpeg" alt="♥">
+                    </div>
+                    <div class="scroll-photo-slide" data-index="3">
+                        <img src="img/4.jpeg" alt="♥">
+                    </div>
+                    <div class="scroll-photo-slide" data-index="4">
+                        <img src="img/5.jpeg" alt="♥">
+                    </div>
+                    <div class="scroll-photo-slide" data-index="5">
+                        <img src="img/6.jpeg" alt="♥">
+                    </div>
+                    <div class="scroll-photo-slide" data-index="6">
+                        <img src="img/7.jpeg" alt="♥">
+                    </div>
+                    <div class="scroll-photo-slide" data-index="7">
+                        <img src="img/8.jpeg" alt="♥">
+                    </div>
+                    <div class="scroll-photo-slide" data-index="8">
+                        <img src="img/9.jpeg" alt="♥">
+                    </div>
+                    <div class="scroll-photo-slide" data-index="9">
+                        <img src="img/10.jpeg" alt="♥">
+                    </div>
+                    <div class="scroll-photo-slide" data-index="10">
+                        <img src="img/11.png" alt="♥">
+                    </div>
+                    <div class="scroll-photo-slide" data-index="11">
+                        <img src="img/12.png" alt="♥">
+                    </div>
+                    <div class="scroll-photo-slide" data-index="12">
+                        <img src="img/13.jpeg" alt="♥">
+                    </div>
+                    <div class="scroll-photo-slide" data-index="13">
+                        <img src="img/14.jpeg" alt="♥">
+                    </div>
+                    <div class="scroll-photo-slide" data-index="14">
+                        <img src="img/15.jpeg" alt="♥">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p style="font-size:24px;">Anh yêu em </p>
+            <p style="font-size:24px;">♥</p>
+            <p style="font-size:24px;">To my cute little dumpling</p>
+        </footer>
+
+    <script>
+        (function() {
+            var section = document.getElementById('nos-moments');
+            var slides = document.querySelectorAll('.scroll-photo-slide');
+            var NUM_PHOTOS = 15;
+            var SEGMENT = 1 / (2 * NUM_PHOTOS - 1);
+
+            if (!section || !slides.length) return;
+
+            function easeInOutCubic(t) {
+                return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            }
+
+            function getScrollProgress() {
+                var rect = section.getBoundingClientRect();
+                var sectionTop = rect.top;
+                var sectionHeight = rect.height;
+                var viewportHeight = window.innerHeight;
+                if (sectionHeight <= viewportHeight) return rect.top <= 0 ? 1 : 0;
+                var progress = -sectionTop / (sectionHeight - viewportHeight);
+                return Math.max(0, Math.min(1, progress));
+            }
+
+            function updateSlides() {
+                var t = getScrollProgress();
+
+                for (var i = 0; i < NUM_PHOTOS; i++) {
+                    var slide = slides[i];
+                    if (!slide) continue;
+
+                    var scale = 0.72, opacity = 0, rotateY = 0, translateX = 0;
+                    var enterStart = (2 * i - 1) * SEGMENT, enterEnd = 2 * i * SEGMENT;
+                    var leaveStart = (2 * i + 1) * SEGMENT, leaveEnd = (2 * i + 2) * SEGMENT;
+
+                    if (i === 0) {
+                        if (t < SEGMENT) {
+                            scale = 1; opacity = 1; rotateY = 0; translateX = 0;
+                        } else if (t < 2 * SEGMENT) {
+                            var p = easeInOutCubic((t - SEGMENT) / SEGMENT);
+                            scale = 1 - p * 0.28; opacity = 1 - p * 0.88; rotateY = -p * 30; translateX = -p * 38;
+                        } else {
+                            scale = 0.72; opacity = 0; rotateY = -30; translateX = -38;
+                        }
+                    } else if (i === NUM_PHOTOS - 1) {
+                        if (t < enterStart) {
+                            scale = 0.72; opacity = 0; rotateY = 30; translateX = 38;
+                        } else if (t < enterEnd) {
+                            var p = easeInOutCubic((t - enterStart) / SEGMENT);
+                            scale = 0.72 + p * 0.28; opacity = 0 + p * 0.88; rotateY = 30 - p * 30; translateX = 38 - p * 38;
+                        } else {
+                            scale = 1; opacity = 1; rotateY = 0; translateX = 0;
+                        }
+                    } else {
+                        if (t < enterStart) {
+                            scale = 0.72; opacity = 0; rotateY = 30; translateX = 38;
+                        } else if (t < enterEnd) {
+                            var p = easeInOutCubic((t - enterStart) / SEGMENT);
+                            scale = 0.72 + p * 0.28; opacity = 0 + p * 0.88; rotateY = 30 - p * 30; translateX = 38 - p * 38;
+                        } else if (t < leaveStart) {
+                            scale = 1; opacity = 1; rotateY = 0; translateX = 0;
+                        } else if (t < leaveEnd) {
+                            var p = easeInOutCubic((t - leaveStart) / SEGMENT);
+                            scale = 1 - p * 0.28; opacity = 1 - p * 0.88; rotateY = -p * 30; translateX = -p * 38;
+                        } else {
+                            scale = 0.72; opacity = 0; rotateY = -30; translateX = -38;
+                        }
+                    }
+
+                    slide.style.opacity = opacity;
+                    slide.style.transform = 'translateX(' + translateX + '%) scale(' + scale + ') rotateY(' + rotateY + 'deg) translateZ(0)';
+                    slide.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none';
+                }
+            }
+
+            var ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        updateSlides();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
+            updateSlides();
+        })();
+    </script>
+</body>
+</html>
